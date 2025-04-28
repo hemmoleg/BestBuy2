@@ -49,11 +49,46 @@ class Product:
 
         self.quantity -= quantity
 
-        if self.quantity is 0:
+        if self.quantity == 0:
             self.active = False
 
         return quantity * self.price
 
+
+class NonStockedProduct(Product):
+
+    def __init__(self, name, price):
+        super().__init__(name, price, 0)
+
+
+    def set_quantity(self, quantity):
+        self.quantity = 0
+
+
+    def show(self):
+        return f"{self.name}, Price: {self.price}"
+
+
+    def buy(self, quantity):
+        result = super().buy(quantity)
+        self.active = True
+        self.quantity = 0
+
+        return result
+
+
+class LimitedProduct(Product):
+    def __init__(self, name, quantity, price, order_max):
+        super().__init__(name, quantity, price)
+
+        self.order_max = order_max
+
+
+    def buy(self, quantity):
+        if quantity > self.order_max:
+            raise ValueError(f"Can only buy {self.order_max}")
+
+        return super().buy(quantity)
 
 def main():
     bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
