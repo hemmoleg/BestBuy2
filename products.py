@@ -48,6 +48,10 @@ class Product:
             raise ValueError("the quantity to buy is more than what is in stock")
 
         self.quantity -= quantity
+
+        if self.quantity is 0:
+            self.active = False
+
         return quantity * self.price
 
 
