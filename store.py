@@ -1,5 +1,6 @@
 from typing import List, Tuple
-from products import Product, LimitedProduct, NonStockedProduct
+from products import *
+from promotions import *
 
 class Store:
     def __init__(self, products_list: List[Product]):
@@ -59,10 +60,24 @@ def main():
                     NonStockedProduct("Windows License", price=125),
                     LimitedProduct("Shipping", price=10, quantity=250, order_max=1)
                     ]
+
+    # Create promotion catalog
+    second_half_price = SecondHalfPrice("Second Half price!")
+    third_one_free = ThirdOneFree("Third One Free!")
+    thirty_percent = PercentDiscount("30% off!", percent=30)
+
+    # Add promotions to products
+    product_list[0].promotion = second_half_price
+    product_list[1].promotion = third_one_free
+    product_list[3].promotion = thirty_percent
+
     best_buy = Store(product_list)
     products = best_buy.get_all_products()
     print(best_buy.get_total_quantity())
-    print(best_buy.order([(products[0], 1), (products[1], 2)]))
+    print(f"default {best_buy.order([(products[0], 1), (products[1], 2)])}")
+    print(f"second_half_price {best_buy.order([(products[0], 4)])}")
+    print(f"third_one_free {best_buy.order([(products[1], 4)])}")
+    print(f"thirty_percent {best_buy.order([(products[3], 4)])}")
 
 
 if __name__ == "__main__":
