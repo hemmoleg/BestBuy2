@@ -99,11 +99,19 @@ def start(store):
         print("3. Make an order")
         print("4. Quit")
 
-        choice = int(input("Please choose a number "))
+        try:
+            choice = int(input("Please choose a number "))
+        except ValueError:
+            print("Invalid input. Please enter a number between 1 and 4.")
+            continue
 
         if choice == 1:
+            index = 1
+            print("---")
             for p in best_buy.get_all_products():
-                print(p.show())
+                print(f"{index}. {p.show()}")
+                index += 1
+            print("---")
             print()
         elif choice == 2:
             print(f"Total of {best_buy.get_total_quantity()} items in store")

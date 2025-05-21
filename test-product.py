@@ -26,4 +26,10 @@ def test_too_large_quantity():
         p = Product("testName", 10, 30)
         p.buy(50)
 
+def test_product_purchase():
+    p = Product("testName", 30, 10)
+    cost = p.buy(7)
+    assert cost == 210
+    assert p.quantity == 3
+
 pytest.main()

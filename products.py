@@ -189,7 +189,7 @@ class LimitedProduct(Product):
             price (float): Price per unit.
             order_max (int): Maximum units allowed per purchase.
         """
-        super().__init__(name, quantity, price)
+        super().__init__(name, price, quantity)
         self.order_max = order_max
 
     def show(self):
